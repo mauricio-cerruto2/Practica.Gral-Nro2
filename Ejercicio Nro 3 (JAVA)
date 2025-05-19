@@ -1,0 +1,183 @@
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+
+
+class Persona {
+    protected String ci;
+    protected String nombre;
+    protected String apellido;
+    protected String celular;
+    protected LocalDate fechaNac;
+    protected char sexo; // 'M' o 'F'
+
+    public Persona(String ci, String nombre, String apellido, String celular, LocalDate fechaNac, char sexo) {
+        this.ci = ci;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.celular = celular;
+        this.fechaNac = fechaNac;
+        this.sexo = sexo;
+    }
+
+    
+    public int calcularEdad() {
+        return Period.between(fechaNac, LocalDate.now()).getYears();
+    }
+
+    
+    public void mostrar() {
+        System.out.println("CI: " + ci);
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Apellido: " + apellido);
+        System.out.println("Celular: " + celular);
+        System.out.println("Fecha Nacimiento: " + fechaNac);
+        System.out.println("Edad: " + calcularEdad());
+        System.out.println("Sexo: " + sexo);
+    }
+
+  
+    public String getCi() { return ci; }
+    public String getNombre() { return nombre; }
+    public String getApellido() { return apellido; }
+    public String getCelular() { return celular; }
+    public LocalDate getFechaNac() { return fechaNac; }
+    public char getSexo() { return sexo; }
+}
+
+
+class Estudiante extends Persona {
+    private String ru;
+    private LocalDate fechaIngreso;
+    private int semestre;
+
+    
+    public Estudiante(String ci, String nombre, String apellido, String celular, 
+                     LocalDate fechaNac, char sexo, String ru, LocalDate fechaIngreso, int semestre) {
+        super(ci, nombre, apellido, celular, fechaNac, sexo);
+        this.ru = ru;
+        this.fechaIngreso = fechaIngreso;
+        this.semestre = semestre;
+    }
+
+    @Override
+    public void mostrar() {
+        super.mostrar();
+        System.out.println("RU: " + ru);
+        System.out.println("Fecha Ingreso: " + fechaIngreso);
+        System.out.println("Semestre: " + semestre);
+        System.out.println("------------------------");
+    }
+
+    
+    public String getRu() { return ru; }
+    public LocalDate getFechaIngreso() { return fechaIngreso; }
+    public int getSemestre() { return semestre; }
+}
+
+
+class Docente extends Persona {
+    private String nit;
+    private String profesion;
+    private String especialidad;
+
+  
+    public Docente(String ci, String nombre, String apellido, String celular, 
+                  LocalDate fechaNac, char sexo, String nit, String profesion, String especialidad) {
+        super(ci, nombre, apellido, celular, fechaNac, sexo);
+        this.nit = nit;
+        this.profesion = profesion;
+        this.especialidad = especialidad;
+    }
+
+    @Override
+    public void mostrar() {
+        super.mostrar();
+        System.out.println("NIT: " + nit);
+        System.out.println("Profesión: " + profesion);
+        System.out.println("Especialidad: " + especialidad);
+        System.out.println("------------------------");
+    }
+
+  
+    public String getNit() { return nit; }
+    public String getProfesion() { return profesion; }
+    public String getEspecialidad() { return especialidad; }
+}
+
+public class MainPersonas {
+    public static void main(String[] args) {
+        
+        List<Persona> personas = new ArrayList<>();
+        
+      
+        personas.add(new Estudiante("1234567", "Juan", "Perez", "70012345", 
+                                   LocalDate.of(1995, 5, 15), 'M', "123456", 
+                                   LocalDate.of(2020, 3, 10), 5));
+        personas.add(new Estudiante("7654321", "Maria", "Gomez", "70123456", 
+                                   LocalDate.of(2000, 8, 20), 'F', "654321", 
+                                   LocalDate.of(2021, 8, 15), 3));
+        personas.add(new Estudiante("9876543", "Carlos", "Perez", "71234567", 
+                                   LocalDate.of(1998, 11, 30), 'M', "987654", 
+                                   LocalDate.of(2019, 1, 20), 7));
+        
+        
+        personas.add(new Docente("1122334", "Pedro", "Lopez", "72012345", 
+                                LocalDate.of(1980, 4, 25), 'M', "1234-5678", 
+                                "Ingeniero", "Sistemas"));
+        personas.add(new Docente("4433221", "Ana", "Gomez", "73012345", 
+                                LocalDate.of(1975, 7, 12), 'F', "8765-4321", 
+                                "Licenciada", "Educación"));
+        personas.add(new Docente("5566778", "Luis", "Perez", "74012345", 
+                                LocalDate.of(1970, 9, 5), 'M', "5678-1234", 
+                                "Ingeniero", "Informática"));
+
+        
+        System.out.println("Todas las personas:");
+        for (Persona p : personas) {
+            p.mostrar();
+        }
+
+        
+        System.out.println("\nEstudiantes mayores de 25 años:");
+        for (Persona p : personas) {
+            if (p instanceof Estudiante && p.calcularEdad() > 25) {
+                p.mostrar();
+            }
+        }
+
+        
+        System.out.println("\nDocente Ingeniero, masculino y mayor de todos:");
+        Docente mayorIngeniero = null;
+        int maxEdad = -1;
+        
+        for (Persona p : personas) {
+            if (p instanceof Docente) {
+                Docente d = (Docente) p;
+                if (d.getProfesion().equalsIgnoreCase("Ingeniero") && 
+                    d.getSexo() == 'M' && 
+                    d.calcularEdad() > maxEdad) {
+                    maxEdad = d.calcularEdad();
+                    mayorIngeniero = d;
+                }
+            }
+        }
+        
+        if (mayorIngeniero != null) {
+            mayorIngeniero.mostrar();
+        }
+
+        
+        System.out.println("\nPersonas con mismos apellidos:");
+        for (int i = 0; i < personas.size(); i++) {
+            for (int j = i + 1; j < personas.size(); j++) {
+                if (personas.get(i).getApellido().equalsIgnoreCase(personas.get(j).getApellido())) {
+                    System.out.println("Apellido coincidente: " + personas.get(i).getApellido());
+                    personas.get(i).mostrar();
+                    personas.get(j).mostrar();
+                }
+            }
+        }
+    }
+}
