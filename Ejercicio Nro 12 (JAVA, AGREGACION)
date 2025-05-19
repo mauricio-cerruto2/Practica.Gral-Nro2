@@ -1,0 +1,103 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+class Estudiante {
+    private String nombre;
+    private String carrera;
+    private int semestre;
+
+    
+    public Estudiante(String nombre, String carrera, int semestre) {
+        this.nombre = nombre;
+        this.carrera = carrera;
+        this.semestre = semestre;
+    }
+
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
+    public int getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
+    }
+
+    
+    public void mostrarInfo() {
+        System.out.println("Nombre: " + nombre + ", Carrera: " + carrera + ", Semestre: " + semestre);
+    }
+}
+
+
+class Universidad {
+    private String nombre;
+    private List<Estudiante> estudiantes;
+
+    
+    public Universidad(String nombre) {
+        this.nombre = nombre;
+        this.estudiantes = new ArrayList<>();
+    }
+
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    
+    public void agregarEstudiante(Estudiante estudiante) {
+        estudiantes.add(estudiante);
+    }
+
+    public void mostrarUniversidad() {
+        System.out.println("Universidad: " + nombre);
+        System.out.println("Estudiantes matriculados:");
+        for (Estudiante estudiante : estudiantes) {
+            estudiante.mostrarInfo();
+        }
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Estudiante estudiante1 = new Estudiante("Juan Pérez", "Ingeniería Informática", 5);
+        Estudiante estudiante2 = new Estudiante("María García", "Medicina", 3);
+        Estudiante estudiante3 = new Estudiante("Carlos López", "Derecho", 7);
+
+        
+        Universidad universidad = new Universidad("Universidad Nacional");
+        universidad.agregarEstudiante(estudiante1);
+        universidad.agregarEstudiante(estudiante2);
+        universidad.agregarEstudiante(estudiante3);
+
+        
+        universidad.mostrarUniversidad();
+    }
+}
