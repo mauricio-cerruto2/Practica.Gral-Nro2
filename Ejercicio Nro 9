@@ -1,0 +1,111 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Pagina {
+    private int numero;
+    private String contenido;
+
+    
+    public Pagina(int numero, String contenido) {
+        this.numero = numero;
+        this.contenido = contenido;
+    }
+
+    
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+
+    
+    public void mostrarInfo() {
+        System.out.println("Página " + numero + ": " + contenido);
+    }
+}
+
+class Libro {
+    private String titulo;
+    private String autor;
+    private List<Pagina> paginas;
+    private static final int MAX_PAGINAS = 500;
+
+    
+    public Libro(String titulo, String autor) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.paginas = new ArrayList<>();
+    }
+
+    
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public List<Pagina> getPaginas() {
+        return paginas;
+    }
+
+    
+    public void agregarPagina(Pagina pagina) {
+        if (paginas.size() < MAX_PAGINAS) {
+            paginas.add(pagina);
+        } else {
+            System.out.println("No se puede agregar más páginas. El libro ya tiene el máximo de " + MAX_PAGINAS + " páginas.");
+        }
+    }
+
+    
+    public void mostrarLibro() {
+        System.out.println("Título: " + titulo);
+        System.out.println("Autor: " + autor);
+        System.out.println("Número de páginas: " + paginas.size());
+        System.out.println("\nContenido del libro:");
+
+        for (Pagina pagina : paginas) {
+            pagina.mostrarInfo();
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Libro miLibro = new Libro("El Principito", "Antoine de Saint-Exupéry");
+
+        
+        miLibro.agregarPagina(new Pagina(1, "Había una vez un principito..."));
+        miLibro.agregarPagina(new Pagina(2, "El principito vivía en un pequeño planeta..."));
+        miLibro.agregarPagina(new Pagina(3, "Un día decidió viajar a otros planetas..."));
+
+        
+        for (int i = 4; i <= 600; i++) {
+            miLibro.agregarPagina(new Pagina(i, "Contenido de la página " + i));
+        }
+
+        
+        miLibro.mostrarLibro();
+    }
+}
