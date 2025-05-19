@@ -1,0 +1,58 @@
+class Libro:
+    def _init_(self, titulo, autor):
+        self.titulo = titulo
+        self.autor = autor
+    
+    
+    def get_titulo(self):
+        return self.titulo
+    
+    def set_titulo(self, titulo):
+        self.titulo = titulo
+    
+    def get_autor(self):
+        return self.autor
+    
+    def set_autor(self, autor):
+        self.autor = autor
+    
+    
+    def mostrar_info(self):
+        print(f"Título: {self.titulo}, Autor: {self.autor}")
+
+
+class Biblioteca:
+    def _init_(self, nombre):
+        self.nombre = nombre
+        self.libros = []
+    
+    
+    def get_nombre(self):
+        return self.nombre
+    
+    def set_nombre(self, nombre):
+        self.nombre = nombre
+    
+    def get_libros(self):
+        return self.libros
+    
+    
+    def agregar_libro(self, libro):
+        self.libros.append(libro)
+    
+    def mostrar_biblioteca(self):
+        print(f"Biblioteca: {self.nombre}")
+        print("Libros disponibles:")
+        for libro in self.libros:
+            libro.mostrar_info()
+libro1 = Libro("Cien años de soledad", "Gabriel García Márquez")
+libro2 = Libro("1984", "George Orwell")
+libro3 = Libro("El Principito", "Antoine de Saint-Exupéry")
+
+biblioteca = Biblioteca("Biblioteca Central")
+biblioteca.agregar_libro(libro1)
+biblioteca.agregar_libro(libro2)
+biblioteca.agregar_libro(libro3)
+
+
+biblioteca.mostrar_biblioteca()
