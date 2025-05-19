@@ -1,0 +1,126 @@
+from datetime import date
+from typing import List
+
+
+class Persona:
+    def _init_(self, ci: str, nombre: str, apellido: str, celular: str, 
+                 fecha_nac: date, sexo: str):
+        self.ci = ci
+        self.nombre = nombre
+        self.apellido = apellido
+        self.celular = celular
+        self.fecha_nac = fecha_nac
+        self.sexo = sexo.upper()  # 'M' o 'F'
+
+    def calcular_edad(self) -> int:
+        hoy = date.today()
+        edad = hoy.year - self.fecha_nac.year
+        if (hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day):
+            edad -= 1
+        return edad
+
+    def mostrar(self):
+        print(f"CI: {self.ci}")
+        print(f"Nombre: {self.nombre}")
+        print(f"Apellido: {self.apellido}")
+        print(f"Celular: {self.celular}")
+        print(f"Fecha Nacimiento: {self.fecha_nac}")
+        print(f"Edad: {self.calcular_edad()}")
+        print(f"Sexo: {self.sexo}")
+
+
+class Estudiante(Persona):
+    def _init_(self, ci: str, nombre: str, apellido: str, celular: str, 
+                 fecha_nac: date, sexo: str, ru: str, fecha_ingreso: date, semestre: int):
+        super()._init_(ci, nombre, apellido, celular, fecha_nac, sexo)
+        self.ru = ru
+        self.fecha_ingreso = fecha_ingreso
+        self.semestre = semestre
+
+    def mostrar(self):
+        super().mostrar()
+        print(f"RU: {self.ru}")
+        print(f"Fecha Ingreso: {self.fecha_ingreso}")
+        print(f"Semestre: {self.semestre}")
+        print("------------------------")
+
+
+class Docente(Persona):
+    def _init_(self, ci: str, nombre: str, apellido: str, celular: str, 
+                 fecha_nac: date, sexo: str, nit: str, profesion: str, especialidad: str):
+        super()._init_(ci, nombre, apellido, celular, fecha_nac, sexo)
+        self.nit = nit
+        self.profesion = profesion
+        self.especialidad = especialidad
+
+    def mostrar(self):
+        super().mostrar()
+        print(f"NIT: {self.nit}")
+        print(f"Profesión: {self.profesion}")
+        print(f"Especialidad: {self.especialidad}")
+        print("------------------------")
+
+def main():
+    
+    personas: List[Persona] = []
+    
+    
+    personas.append(Estudiante("1234567", "Juan", "Perez", "70012345", 
+                              date(1995, 5, 15), 'M', "123456", 
+                              date(2020, 3, 10), 5))
+    personas.append(Estudiante("7654321", "Maria", "Gomez", "70123456", 
+                              date(2000, 8, 20), 'F', "654321", 
+                              date(2021, 8, 15), 3))
+    personas.append(Estudiante("9876543", "Carlos", "Perez", "71234567", 
+                              date(1998, 11, 30), 'M', "987654", 
+                              date(2019, 1, 20), 7))
+    
+    
+    personas.append(Docente("1122334", "Pedro", "Lopez", "72012345", 
+                           date(1980, 4, 25), 'M', "1234-5678", 
+                           "Ingeniero", "Sistemas"))
+    personas.append(Docente("4433221", "Ana", "Gomez", "73012345", 
+                           date(1975, 7, 12), 'F', "8765-4321", 
+                           "Licenciada", "Educación"))
+    personas.append(Docente("5566778", "Luis", "Perez", "74012345", 
+                           date(1970, 9, 5), 'M', "5678-1234", 
+                           "Ingeniero", "Informática"))
+
+    
+    print("Todas las personas:")
+    for p in personas:
+        p.mostrar()
+
+    
+    print("\nEstudiantes mayores de 25 años:")
+    for p in personas:
+        if isinstance(p, Estudiante) and p.calcular_edad() > 25:
+            p.mostrar()
+
+    
+    print("\nDocente Ingeniero, masculino y mayor de todos:")
+    mayor_ingeniero = None
+    max_edad = -1
+    
+    for p in personas:
+        if isinstance(p, Docente):
+            if (p.profesion.lower() == "ingeniero" and 
+                p.sexo == 'M' and 
+                p.calcular_edad() > max_edad):
+                max_edad = p.calcular_edad()
+                mayor_ingeniero = p
+    
+    if mayor_ingeniero:
+        mayor_ingeniero.mostrar()
+
+    
+    print("\nPersonas con mismos apellidos:")
+    for i in range(len(personas)):
+        for j in range(i + 1, len(personas)):
+            if personas[i].apellido.lower() == personas[j].apellido.lower():
+                print(f"Apellido coincidente: {personas[i].apellido}")
+                personas[i].mostrar()
+                personas[j].mostrar()
+
+if _name_ == "_main_":
+    main()
