@@ -1,0 +1,127 @@
+class Vehiculo {
+    private String marca;
+    private String modelo;
+    private int año;
+    private double precioBase;
+
+    public Vehiculo(String marca, String modelo, int año, double precioBase) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.año = año;
+        this.precioBase = precioBase;
+    }
+
+    
+    public String getMarca() { return marca; }
+    public void setMarca(String marca) { this.marca = marca; }
+
+    public String getModelo() { return modelo; }
+    public void setModelo(String modelo) { this.modelo = modelo; }
+
+    public int getAño() { return año; }
+    public void setAño(int año) { this.año = año; }
+
+    public double getPrecioBase() { return precioBase; }
+    public void setPrecioBase(double precioBase) { this.precioBase = precioBase; }
+
+    public void mostrarInfo() {
+        System.out.println("Marca: " + marca);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Año: " + año);
+        System.out.println("Precio Base: $" + precioBase);
+    }
+}
+
+
+class Coche extends Vehiculo {
+    private int numPuertas;
+    private String tipoCombustible;
+
+    public Coche(String marca, String modelo, int año, double precioBase, 
+                 int numPuertas, String tipoCombustible) {
+        super(marca, modelo, año, precioBase);
+        this.numPuertas = numPuertas;
+        this.tipoCombustible = tipoCombustible;
+    }
+
+    
+    public int getNumPuertas() { return numPuertas; }
+    public void setNumPuertas(int numPuertas) { this.numPuertas = numPuertas; }
+
+    public String getTipoCombustible() { return tipoCombustible; }
+    public void setTipoCombustible(String tipoCombustible) { this.tipoCombustible = tipoCombustible; }
+
+    @Override
+    public void mostrarInfo() {
+        super.mostrarInfo();
+        System.out.println("Número de puertas: " + numPuertas);
+        System.out.println("Tipo de combustible: " + tipoCombustible);
+        System.out.println("------------------------");
+    }
+}
+
+
+class Moto extends Vehiculo {
+    private int cilindrada;
+    private String tipoMotor;
+
+    public Moto(String marca, String modelo, int año, double precioBase, 
+               int cilindrada, String tipoMotor) {
+        super(marca, modelo, año, precioBase);
+        this.cilindrada = cilindrada;
+        this.tipoMotor = tipoMotor;
+    }
+
+    
+    public int getCilindrada() { return cilindrada; }
+    public void setCilindrada(int cilindrada) { this.cilindrada = cilindrada; }
+
+    public String getTipoMotor() { return tipoMotor; }
+    public void setTipoMotor(String tipoMotor) { this.tipoMotor = tipoMotor; }
+
+    @Override
+    public void mostrarInfo() {
+        super.mostrarInfo();
+        System.out.println("Cilindrada: " + cilindrada + "cc");
+        System.out.println("Tipo de motor: " + tipoMotor);
+        System.out.println("------------------------");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Coche coche1 = new Coche("Toyota", "Corolla", 2020, 25000, 4, "Gasolina");
+        Coche coche2 = new Coche("Ford", "Explorer", 2022, 45000, 5, "Híbrido");
+        Coche coche3 = new Coche("Volkswagen", "Golf", 2023, 28000, 3, "Diésel");
+        
+        Moto moto1 = new Moto("Honda", "CBR600", 2021, 12000, 600, "4 tiempos");
+        Moto moto2 = new Moto("Yamaha", "MT-07", 2023, 9000, 700, "2 tiempos");
+
+        
+        System.out.println("Información de todos los vehículos:");
+        coche1.mostrarInfo();
+        coche2.mostrarInfo();
+        coche3.mostrarInfo();
+        moto1.mostrarInfo();
+        moto2.mostrarInfo();
+
+        
+        System.out.println("\nCoches con más de 4 puertas:");
+        Coche[] coches = {coche1, coche2, coche3};
+        for (Coche coche : coches) {
+            if (coche.getNumPuertas() > 4) {
+                coche.mostrarInfo();
+            }
+        }
+
+        
+        System.out.println("\nVehículos actuales (gestión 2025):");
+        Vehiculo[] vehiculos = {coche1, coche2, coche3, moto1, moto2};
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getAño() >= 2023) {
+                vehiculo.mostrarInfo();
+            }
+        }
+    }
+}
