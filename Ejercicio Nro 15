@@ -1,0 +1,148 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Vehiculo 
+    private String marca;
+    private String modelo;
+    private int año;
+
+    
+    public Vehiculo(String marca, String modelo, int año) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.año = año;
+    }
+
+    
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public int getAño() {
+        return año;
+    }
+
+    public void setAño(int año) {
+        this.año = año;
+    }
+
+    
+    public void mostrarInfo() {
+        System.out.println("Vehículo: " + marca + " " + modelo + " (" + año + ")");
+    }
+}
+
+
+class Conductor {
+    private String nombre;
+    private String licencia;
+
+    
+    public Conductor(String nombre, String licencia) {
+        this.nombre = nombre;
+        this.licencia = licencia;
+    }
+
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getLicencia() {
+        return licencia;
+    }
+
+    public void setLicencia(String licencia) {
+        this.licencia = licencia;
+    }
+
+    
+    public void mostrarInfo() {
+        System.out.println("Conductor: " + nombre + " (Licencia: " + licencia + ")");
+    }
+}
+
+
+class Flota {
+    private List<Vehiculo> vehiculos;
+    private List<Conductor> conductores;
+
+    
+    public Flota() {
+        this.vehiculos = new ArrayList<>();
+        this.conductores = new ArrayList<>();
+    }
+
+    
+    public void agregarVehiculo(Vehiculo vehiculo) {
+        vehiculos.add(vehiculo);
+    }
+
+    public void agregarConductor(Conductor conductor) {
+        conductores.add(conductor);
+    }
+
+    
+    public void mostrarFlota() {
+        System.out.println("=== FLOTA DE VEHÍCULOS ===");
+        System.out.println("\nVehículos disponibles (" + vehiculos.size() + "):");
+        for (Vehiculo vehiculo : vehiculos) {
+            vehiculo.mostrarInfo();
+        }
+
+        System.out.println("\nConductores disponibles (" + conductores.size() + "):");
+        for (Conductor conductor : conductores) {
+            conductor.mostrarInfo();
+        }
+        System.out.println("=========================");
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Vehiculo vehiculo1 = new Vehiculo("Toyota", "Corolla", 2020);
+        Vehiculo vehiculo2 = new Vehiculo("Ford", "F-150", 2019);
+        Vehiculo vehiculo3 = new Vehiculo("Honda", "Civic", 2021);
+        Vehiculo vehiculo4 = new Vehiculo("Chevrolet", "Spark", 2018);
+
+        
+        Conductor conductor1 = new Conductor("Juan Pérez", "A123456");
+        Conductor conductor2 = new Conductor("María García", "B789012");
+        Conductor conductor3 = new Conductor("Carlos López", "C345678");
+
+        
+        Flota flotaEmpresa = new Flota();
+        
+        
+        flotaEmpresa.agregarVehiculo(vehiculo1);
+        flotaEmpresa.agregarVehiculo(vehiculo2);
+        flotaEmpresa.agregarVehiculo(vehiculo3);
+        flotaEmpresa.agregarVehiculo(vehiculo4);
+
+        
+        flotaEmpresa.agregarConductor(conductor1);
+        flotaEmpresa.agregarConductor(conductor2);
+        flotaEmpresa.agregarConductor(conductor3);
+
+        
+        flotaEmpresa.mostrarFlota();
+    }
+}
