@@ -1,0 +1,185 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+abstract class TEmpleado {
+    protected String nombre;
+
+    public TEmpleado(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
+    public abstract double getSalario();
+
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+}
+
+
+class TFijo extends TEmpleado {
+    private double sueldo;
+
+    
+    public TFijo(String nombre) {
+        super(nombre);
+        this.sueldo = 0.0;
+    }
+
+    public TFijo(String nombre, double sueldo) {
+        super(nombre);
+        this.sueldo = sueldo;
+    }
+
+    
+    public TFijo(TFijo otro) {
+        super(otro.getNombre());
+        this.sueldo = otro.getSueldo();
+    }
+
+    
+    @Override
+    public double getSalario() {
+        return sueldo;
+    }
+
+    
+    public double getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(double sueldo) {
+        this.sueldo = sueldo;
+    }
+}
+
+
+class TComisionista extends TEmpleado {
+    private double base;
+    private double comision;
+    private double ventas;
+
+    
+    public TComisionista(String nombre) {
+        super(nombre);
+        this.base = 0.0;
+        this.comision = 0.0;
+        this.ventas = 0.0;
+    }
+
+    public TComisionista(String nombre, double base, double comision, double ventas) {
+        super(nombre);
+        this.base = base;
+        this.comision = comision;
+        this.ventas = ventas;
+    }
+
+    
+    public TComisionista(TComisionista otro) {
+        super(otro.getNombre());
+        this.base = otro.getBase();
+        this.comision = otro.getComision();
+        this.ventas = otro.getVentas();
+    }
+
+    
+    @Override
+    public double getSalario() {
+        return base + (comision * ventas);
+    }
+
+    
+    public double getBase() {
+        return base;
+    }
+
+    public void setBase(double base) {
+        this.base = base;
+    }
+
+    public double getComision() {
+        return comision;
+    }
+
+    public void setComision(double comision) {
+        this.comision = comision;
+    }
+
+    public double getVentas() {
+        return ventas;
+    }
+
+    public void setVentas(double ventas) {
+        this.ventas = ventas;
+    }
+}
+
+public class MainEmpleados {
+    public static void main(String[] args) {
+        
+        
+        
+        List<TEmpleado> empleados = new ArrayList<>();
+        
+        
+        empleados.add(new TFijo("Juan Pérez", 2500.0));
+        empleados.add(new TFijo("María Gómez", 3200.0));
+        empleados.add(new TFijo("Carlos López", 2800.0));
+        
+        
+        empleados.add(new TComisionista("Ana Rodríguez", 1000.0, 0.05, 15000.0));
+        empleados.add(new TComisionista("Luis Torres", 1200.0, 0.03, 20000.0));
+        empleados.add(new TComisionista("Sofía Méndez", 800.0, 0.07, 8000.0));
+        
+        
+        System.out.println("Salarios de todos los empleados:");
+        for (TEmpleado emp : empleados) {
+            System.out.println(emp.getNombre() + ": " + emp.getSalario() + "€");
+        }
+        
+        
+        System.out.println("\nEmpleado fijo con mayor sueldo:");
+        TFijo empleadoFijoMayor = null;
+        double maxSueldo = Double.MIN_VALUE;
+        
+        for (TEmpleado emp : empleados) {
+            if (emp instanceof TFijo) {
+                TFijo fijo = (TFijo) emp;
+                if (fijo.getSueldo() > maxSueldo) {
+                    maxSueldo = fijo.getSueldo();
+                    empleadoFijoMayor = fijo;
+                }
+            }
+        }
+        
+        if (empleadoFijoMayor != null) {
+            System.out.println(empleadoFijoMayor.getNombre() + " - Sueldo: " + empleadoFijoMayor.getSueldo() + "€");
+        }
+        
+        
+        System.out.println("\nEmpleado comisionista con menor salario:");
+        TComisionista comisionistaMenor = null;
+        double minSalario = Double.MAX_VALUE;
+        
+        for (TEmpleado emp : empleados) {
+            if (emp instanceof TComisionista) {
+                TComisionista com = (TComisionista) emp;
+                double salario = com.getSalario();
+                if (salario < minSalario) {
+                    minSalario = salario;
+                    comisionistaMenor = com;
+                }
+            }
+        }
+        
+        if (comisionistaMenor != null) {
+            System.out.println(comisionistaMenor.getNombre() + " - Salario: " + comisionistaMenor.getSalario() + "€");
+        }
+    }
+}
