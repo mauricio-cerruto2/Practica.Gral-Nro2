@@ -1,0 +1,75 @@
+class Habitacion:
+    def _init_(self, nombre: str, tamaño: float):
+        self.nombre = nombre
+        self.tamaño = tamaño  
+
+    
+    def mostrar_info(self):
+        print(f"Habitación: {self.nombre} - Tamaño: {self.tamaño} m²")
+
+    
+    @property
+    def nombre(self):
+        return self._nombre
+
+    @nombre.setter
+    def nombre(self, value):
+        self._nombre = value
+
+    @property
+    def tamaño(self):
+        return self._tamaño
+
+    @tamaño.setter
+    def tamaño(self, value):
+        self._tamaño = value
+
+
+class Casa:
+    def _init_(self, direccion: str):
+        self.direccion = direccion
+        self.habitaciones = []
+
+    
+    def agregar_habitacion(self, habitacion: Habitacion):
+        self.habitaciones.append(habitacion)
+
+    
+    def mostrar_casa(self):
+        print(f"Casa en: {self.direccion}")
+        print("Habitaciones:")
+        for habitacion in self.habitaciones:
+            habitacion.mostrar_info()
+
+    
+    @property
+    def direccion(self):
+        return self._direccion
+
+    @direccion.setter
+    def direccion(self, value):
+        self._direccion = value
+
+    @property
+    def habitaciones(self):
+        return self._habitaciones
+
+    @habitaciones.setter
+    def habitaciones(self, value):
+        self._habitaciones = value
+
+def main():
+    
+    mi_casa = Casa("Calle Principal 123")
+    
+    
+    mi_casa.agregar_habitacion(Habitacion("Sala", 20.5))
+    mi_casa.agregar_habitacion(Habitacion("Cocina", 12.0))
+    mi_casa.agregar_habitacion(Habitacion("Dormitorio Principal", 15.75))
+    mi_casa.agregar_habitacion(Habitacion("Baño", 6.5))
+
+    
+    mi_casa.mostrar_casa()
+
+if _name_ == "_main_":
+    main()
