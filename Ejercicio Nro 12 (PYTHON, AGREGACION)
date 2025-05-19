@@ -1,0 +1,68 @@
+class Estudiante:
+    def _init_(self, nombre, carrera, semestre):
+        self.nombre = nombre
+        self.carrera = carrera
+        self.semestre = semestre
+    
+    
+    def get_nombre(self):
+        return self.nombre
+    
+    def set_nombre(self, nombre):
+        self.nombre = nombre
+    
+    def get_carrera(self):
+        return self.carrera
+    
+    def set_carrera(self, carrera):
+        self.carrera = carrera
+    
+    def get_semestre(self):
+        return self.semestre
+    
+    def set_semestre(self, semestre):
+        self.semestre = semestre
+    
+    
+    def mostrar_info(self):
+        print(f"Nombre: {self.nombre}, Carrera: {self.carrera}, Semestre: {self.semestre}")
+
+
+class Universidad:
+    def _init_(self, nombre):
+        self.nombre = nombre
+        self.estudiantes = []
+    
+    
+    def get_nombre(self):
+        return self.nombre
+    
+    def set_nombre(self, nombre):
+        self.nombre = nombre
+    
+    def get_estudiantes(self):
+        return self.estudiantes
+    
+    
+    def agregar_estudiante(self, estudiante):
+        self.estudiantes.append(estudiante)
+    
+    def mostrar_universidad(self):
+        print(f"Universidad: {self.nombre}")
+        print("Estudiantes matriculados:")
+        for estudiante in self.estudiantes:
+            estudiante.mostrar_info()
+
+
+estudiante1 = Estudiante("Juan Pérez", "Ingeniería Informática", 5)
+estudiante2 = Estudiante("María García", "Medicina", 3)
+estudiante3 = Estudiante("Carlos López", "Derecho", 7)
+
+
+universidad = Universidad("Universidad Nacional")
+universidad.agregar_estudiante(estudiante1)
+universidad.agregar_estudiante(estudiante2)
+universidad.agregar_estudiante(estudiante3)
+
+
+universidad.mostrar_universidad()
