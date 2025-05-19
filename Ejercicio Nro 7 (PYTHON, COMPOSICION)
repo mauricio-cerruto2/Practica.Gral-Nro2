@@ -1,0 +1,84 @@
+class Componente:
+    def _init_(self, nombre: str, capacidad: str):
+        self.nombre = nombre
+        self.capacidad = capacidad
+
+    
+    def mostrar_info(self):
+        print(f"- {self.nombre}: {self.capacidad}")
+
+    
+    @property
+    def nombre(self):
+        return self._nombre
+
+    @nombre.setter
+    def nombre(self, value: str):
+        self._nombre = value
+
+    @property
+    def capacidad(self):
+        return self._capacidad
+
+    @capacidad.setter
+    def capacidad(self, value: str):
+        self._capacidad = value
+
+
+class Computadora:
+    def _init_(self, marca: str, modelo: str):
+        self.marca = marca
+        self.modelo = modelo
+        self.componentes = []
+
+    
+    def agregar_componente(self, componente: Componente):
+        self.componentes.append(componente)
+
+    
+    def mostrar_computadora(self):
+        print(f"Computadora: {self.marca} {self.modelo}")
+        print("Componentes:")
+        for componente in self.componentes:
+            componente.mostrar_info()
+
+    
+    @property
+    def marca(self):
+        return self._marca
+
+    @marca.setter
+    def marca(self, value: str):
+        self._marca = value
+
+    @property
+    def modelo(self):
+        return self._modelo
+
+    @modelo.setter
+    def modelo(self, value: str):
+        self._modelo = value
+
+    @property
+    def componentes(self):
+        return self._componentes
+
+    @componentes.setter
+    def componentes(self, value: list):
+        self._componentes = value
+
+def main():
+    
+    mi_pc = Computadora("Dell", "XPS 15")
+    
+    # Agregar componentes
+    mi_pc.agregar_componente(Componente("Procesador", "Intel Core i7-10750H"))
+    mi_pc.agregar_componente(Componente("Memoria RAM", "16GB DDR4"))
+    mi_pc.agregar_componente(Componente("Disco Duro", "1TB SSD NVMe"))
+    mi_pc.agregar_componente(Componente("Tarjeta Gráfica", "NVIDIA GTX 1650 Ti"))
+
+    
+    mi_pc.mostrar_computadora()
+
+if _name_ == "_main_":
+    main()
