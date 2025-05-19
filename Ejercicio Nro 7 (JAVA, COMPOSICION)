@@ -1,0 +1,101 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+class Componente {
+    private String nombre;
+    private String capacidad;
+
+    
+    public Componente(String nombre, String capacidad) {
+        this.nombre = nombre;
+        this.capacidad = capacidad;
+    }
+
+    
+    public void mostrarInfo() {
+        System.out.println("- " + nombre + ": " + capacidad);
+    }
+
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(String capacidad) {
+        this.capacidad = capacidad;
+    }
+}
+
+
+class Computadora {
+    private String marca;
+    private String modelo;
+    private List<Componente> componentes;
+
+    
+    public Computadora(String marca, String modelo) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.componentes = new ArrayList<>();
+    }
+
+    
+    public void agregarComponente(Componente componente) {
+        componentes.add(componente);
+    }
+
+    
+    public void mostrarComputadora() {
+        System.out.println("Computadora: " + marca + " " + modelo);
+        System.out.println("Componentes:");
+        for (Componente c : componentes) {
+            c.mostrarInfo();
+        }
+    }
+
+    
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public List<Componente> getComponentes() {
+        return componentes;
+    }
+}
+
+public class MainComputadora {
+    public static void main(String[] args) {
+        
+        Computadora miPC = new Computadora("Dell", "XPS 15");
+        
+        
+        miPC.agregarComponente(new Componente("Procesador", "Intel Core i7-10750H"));
+        miPC.agregarComponente(new Componente("Memoria RAM", "16GB DDR4"));
+        miPC.agregarComponente(new Componente("Disco Duro", "1TB SSD NVMe"));
+        miPC.agregarComponente(new Componente("Tarjeta Gráfica", "NVIDIA GTX 1650 Ti"));
+
+        
+        miPC.mostrarComputadora();
+    }
+}
