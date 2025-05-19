@@ -1,0 +1,89 @@
+class Libro {
+    private String titulo;
+    private String autor;
+
+    
+    public Libro(String titulo, String autor) {
+        this.titulo = titulo;
+        this.autor = autor;
+    }
+
+    
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    
+    public void mostrarInfo() {
+        System.out.println("Título: " + titulo + ", Autor: " + autor);
+    }
+}
+
+
+class Biblioteca {
+    private String nombre;
+    private List<Libro> libros;
+
+    
+    public Biblioteca(String nombre) {
+        this.nombre = nombre;
+        this.libros = new ArrayList<>();
+    }
+
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    
+    public void agregarLibro(Libro libro) {
+        libros.add(libro);
+    }
+
+    public void mostrarBiblioteca() {
+        System.out.println("Biblioteca: " + nombre);
+        System.out.println("Libros disponibles:");
+        for (Libro libro : libros) {
+            libro.mostrarInfo();
+        }
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Libro libro1 = new Libro("Cien años de soledad", "Gabriel García Márquez");
+        Libro libro2 = new Libro("1984", "George Orwell");
+        Libro libro3 = new Libro("El Principito", "Antoine de Saint-Exupéry");
+
+    
+        Biblioteca biblioteca = new Biblioteca("Biblioteca Central");
+        biblioteca.agregarLibro(libro1);
+        biblioteca.agregarLibro(libro2);
+        biblioteca.agregarLibro(libro3);
+
+        
+        biblioteca.mostrarBiblioteca();
+    }
+}
